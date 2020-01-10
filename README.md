@@ -1,6 +1,7 @@
 # ckad-certification
-Preparing CKAD certification exam
+Preparing **CKAD** & **CKA** certification exams
 
+## CKAD
 Core Concepts – 13%
 - Understand Kubernetes API primitives
 - Create and Configure Basic Pods
