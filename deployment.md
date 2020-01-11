@@ -10,3 +10,4 @@
 10. Scale a Deployment by using the following command: `kubectl scale deploy/nginx-deployment --replicas=10`
 11. Pause a deployment by running the following command: `kubectl rollout pause deploy/nginx-deployment`
 12. Eventually, resume the Deployment: `kubectl rollout resume deploy/nginx-deployment`
+14. Expose a Deployment with the kubectl expose command: `kubectl expose deployment webserver --name=web-service --type=NodePort`
