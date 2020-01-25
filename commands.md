@@ -5,6 +5,9 @@ $ kubectl run --generator=run-pod/v1 nginx --image=nginx
 $ kubectl run --generator=run-pod/v1 redis --image=redis:alpine -l tier=db
 ```
 
+## Get POD definition into YAML
+`kubectl get pod webapp-color -o yaml > temp1.yaml`
+
 ## Generate POD Manifest YAML file (-o yaml). Don't create it(--dry-run)
 `kubectl run --generator=run-pod/v1 nginx --image=nginx --dry-run -o yaml`
 

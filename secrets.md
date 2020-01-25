@@ -1,15 +1,22 @@
 ## Secrets
+
 ### Create a Secret from Literal and Display Its Details
 ```
 $ kubectl create secret generic my-password --from-literal=password=mysqlpassword
-$ kubectl get secret my-password
+$ kubectl get secret my-password -o yaml
 $ kubectl describe secret my-password
 ```
 
 ### Create a Secret Manually
+**ENCODE**
 ```
-$ echo mysqlpassword | base64
+$ echo -n 'mysqlpassword' | base64
 bXlzcWxwYXNzd29yZAo=
+```
+**DECODE**
+```
+$ echo -n 'bXlzcWxwYXNzd29yZAo=' | base64 --decode
+mysqlpassword
 ```
 ```
 apiVersion: v1
@@ -44,7 +51,7 @@ Now we can create the Secret from the password.txt file:
 
 ```
 $ kubectl create secret generic my-file-password --from-file=password.txt
-$ kubectl get secret my-file-password
+$ kubectl get secret my-file-password -o yaml
 $ kubectl describe secret my-file-password
 ```
 
@@ -77,4 +84,19 @@ spec:
   - name: secret-volume
     secret:
       secretName: my-password
+```
+
+#### Example
+```
+kind: Pod 
+apiVersion: v1 
+metadata:
+  name: pod-env-var 
+spec:
+  containers:
+    - name: env-var-configmap
+      image: nginx:1.7.9 
+      envFrom:
+        - secretRef:
+            name: my-password
 ```
