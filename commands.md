@@ -48,4 +48,3 @@ $ kubectl expose deployment webapp --type=NodePort --port=8080 --name=webapp-ser
 
 ## Create a service to expose port
 `kubectl expose pod redis --port=6379 --name redis-service`
-
