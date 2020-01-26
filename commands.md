@@ -6,10 +6,14 @@ $ kubectl run --generator=run-pod/v1 redis --image=redis:alpine -l tier=db
 ```
 
 ## Get POD definition into YAML
-`kubectl get pod webapp-color -o yaml > temp1.yaml`
+```
+$ kubectl get pod webapp-color -oyaml > temp1.yaml
+```
 
 ## Generate POD Manifest YAML file (-o yaml). Don't create it(--dry-run)
-`kubectl run --generator=run-pod/v1 nginx --image=nginx --dry-run -o yaml`
+```
+$ kubectl run --generator=run-pod/v1 nginx --image=nginx --dry-run -o yaml
+```
 
 ## Set POD date
 `kubectl exec -it POD-NAME -- date -s '19 APR 2012 11:14:00'`
@@ -20,8 +24,9 @@ $ kubectl run --generator=run-pod/v1 redis --image=redis:alpine -l tier=db
 Or the newer recommended way:
 
 ```
-kubectl create deployment --image=nginx nginx
-kubectl create deployment webapp --image=kodekloud/webapp-color
+$ kubectl create deployment --image=nginx nginx
+$ kubectl create deployment webapp --image=kodekloud/webapp-color
+$ kubectl create deployment demo --image=nginx --dry-run -oyaml > deployment.yaml
 ```
 
 ## Change image from deployment
