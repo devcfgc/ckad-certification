@@ -16,10 +16,10 @@ $ kubectl run --generator=run-pod/v1 nginx --image=nginx --dry-run -o yaml
 ```
 
 ## Set POD date
-`kubectl exec -it POD-NAME -- date -s '19 APR 2012 11:14:00'`
+`$ kubectl exec -it POD-NAME -- date -s '19 APR 2012 11:14:00'`
 
 ## Create a deployment
-`kubectl run --generator=deployment/v1beta1 nginx --image=nginx`
+`$ kubectl run --generator=deployment/v1beta1 nginx --image=nginx`
 
 Or the newer recommended way:
 
@@ -30,26 +30,31 @@ $ kubectl create deployment demo --image=nginx --dry-run -oyaml > deployment.yam
 ```
 
 ## Change image from deployment
-`kubectl set image deployment/nginx nginx=nginx:1.9.1 --record`
+`$ kubectl set image deployment/nginx nginx=nginx:1.9.1 --record`
 
 ## Scale deployment
-`kubectl scale deployment/webapp --replicas=3`
+`$ kubectl scale deployment/webapp --replicas=3`
 
 ## Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)
 
-`kubectl run --generator=deployment/v1beta1 nginx --image=nginx --dry-run -o yaml`
+`$ kubectl run --generator=deployment/v1beta1 nginx --image=nginx --dry-run -o yaml`
 
 Or
 
-`kubectl create deployment --image=nginx nginx --dry-run -o yaml`
+`$ kubectl create deployment --image=nginx nginx --dry-run -o yaml`
 
 ## Generate Deployment YAML file (-o yaml). Don't create it(--dry-run) with 4 Replicas (--replicas=4)
-`kubectl run --generator=deployment/v1beta1 nginx --image=nginx --dry-run --replicas=4 -o yaml`
+`$ kubectl run --generator=deployment/v1beta1 nginx --image=nginx --dry-run --replicas=4 -o yaml`
 
 > `kubectl create deployment` does not have a `--replicas` option. You could first create it and then scale it using the kubectl scale command.
 
 ## Save it to a file - (If you need to modify or add some other details)
-`kubectl run --generator=deployment/v1beta1 nginx --image=nginx --dry-run --replicas=4 -o yaml > nginx-deployment.yaml`
+`$ kubectl run --generator=deployment/v1beta1 nginx --image=nginx --dry-run --replicas=4 -o yaml > nginx-deployment.yaml`
+
+## New deployment + 6 replicas
+```
+$ kubectl run blue --image=nginx --replicas=6
+```
 
 ## Create a Service of type NodePort and expose it:
 ```
@@ -58,4 +63,7 @@ $ kubectl expose deployment webapp --type=NodePort --port=8080 --name=webapp-ser
 ```
 
 ## Create a service to expose port
-`kubectl expose pod redis --port=6379 --name redis-service`
+`$ kubectl expose pod redis --port=6379 --name redis-service`
+
+## Port forward a service
+`$ kubectl port-forward svc/demo 8080:8080`
