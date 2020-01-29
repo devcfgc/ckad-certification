@@ -9,6 +9,16 @@ Rather than restarting it manually, we can use a Liveness Probe. Liveness probe 
 Liveness Probes can be set by defining:
 
 - Liveness command
+```
+livenessProbe:
+  exec:
+    command:
+    - cat
+    - /tmp/healthy
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  failureTreshold: 4
+```
 - Liveness HTTP request
     ```
     apiVersion: v1
@@ -24,14 +34,14 @@ Liveness Probes can be set by defining:
         args:
         - /server
         livenessProbe:
-        httpGet:
+          httpGet:
             path: /healthz
             port: 8080
             httpHeaders:
-            - name: Custom-Header
-            value: Awesome
-        initialDelaySeconds: 3
-        periodSeconds: 3
+              - name: Custom-Header
+                value: Awesome
+          initialDelaySeconds: 3
+          periodSeconds: 3
     ```
 - TCP Liveness Probe.
     ```
@@ -49,14 +59,14 @@ Liveness Probes can be set by defining:
         - containerPort: 8080
         readinessProbe:
         tcpSocket:
-            port: 8080
+          port: 8080
         initialDelaySeconds: 5
         periodSeconds: 10
         livenessProbe:
-        tcpSocket:
+          tcpSocket:
             port: 8080
-        initialDelaySeconds: 15
-        periodSeconds: 20
+          initialDelaySeconds: 15
+          periodSeconds: 20
     ```
 ## Readiness
 Sometimes, applications have to meet certain conditions before they can serve traffic. These conditions include ensuring that the depending service is ready, or acknowledging that a large dataset needs to be loaded, etc. In such cases, we use Readiness Probes and wait for a certain condition to occur. Only then, the application can serve traffic.
@@ -70,6 +80,38 @@ readinessProbe:
     - /tmp/healthy
   initialDelaySeconds: 5
   periodSeconds: 5
+  failureTreshold: 4
+```
+```
+readinessProbe:
+  httpGet:
+    path: /api/ready
+    port: 8080
+```
+```
+readinessProbe:
+  tcpSocket:
+    port: 3306
+```
+
+### Readiness example
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp
+  labels: 
+    name: simple-webapp
+spec:
+  containers:
+  - name: simple-webapp
+    image: simple-webapp
+    ports:
+      - containerPort: 8080
+  readinessProbe:
+    httpGet:
+      path: /api/ready
+      port: 8080
 ```
 
 ## Protect slow starting containers with startup probes
