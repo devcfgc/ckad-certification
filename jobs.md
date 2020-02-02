@@ -1,3 +1,54 @@
+## Job example
+```
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: reporting-job
+spec:
+  completions: 3
+  parallelism: 3
+  template:
+    spec:
+      containers:
+      - name: reporting-job
+        image: reporting-job
+      restartPolicy: Never
+```
+```
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: throw-dice-job
+spec:
+  backoffLimit: 15 # This is so the job does not quit before it succeeds.
+  template:
+    spec:
+      containers:
+      - name: math-add
+        image: example/throw-dice
+      restartPolicy: Never
+```
+
+## CronJob example
+```
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: reporting-job
+spec:
+  schedule: "*/1 * * * *"
+  jobtemplate:
+    spec:
+       completions: 3
+       parallelism: 3
+       template:
+          spec:
+             containers:
+               - name: reporting-job
+                 image: reporting-job
+             restartPolicy: Never
+```
+
 ## Patch some parameter
 ```
 $ kubectl patch cronjob JOB-NAME -p '{"spec":{"suspend":false}}'

@@ -41,13 +41,13 @@ metadata:
 spec:
   containers:
   - name: app
-    image: kodekloud/event-simulator
+    image: example/event-simulator
     volumeMounts:
     - mountPath: /log
       name: log-volume
 
   - name: sidecar
-    image: kodekloud/filebeat-configured
+    image: example/filebeat-configured
     volumeMounts:
     - mountPath: /var/log/event-simulator/      name: log-volume
 

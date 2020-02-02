@@ -25,7 +25,7 @@ Or the newer recommended way:
 
 ```
 $ kubectl create deployment --image=nginx nginx
-$ kubectl create deployment webapp --image=kodekloud/webapp-color
+$ kubectl create deployment webapp --image=example/webapp-color
 $ kubectl create deployment demo --image=nginx --dry-run -oyaml > deployment.yaml
 ```
 
