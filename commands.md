@@ -1,4 +1,13 @@
 # Imperative commands
+
+## Create a some resources
+```
+$ kubectl create namespace ny-namespace
+$ kubectl create configmap nginx-configuration --namespace my-namespace
+$ kubectl create serviceaccount ingress-serviceaccount --namespace my-namespace
+$ kubectl get roles,rolebindings --namespace my-namespace
+```
+
 ## Create an Pod
 ```
 $ kubectl run --generator=run-pod/v1 nginx --image=nginx
