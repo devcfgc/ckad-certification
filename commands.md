@@ -8,6 +8,9 @@ $ kubectl create serviceaccount ingress-serviceaccount --namespace my-namespace
 $ kubectl get roles,rolebindings --namespace my-namespace
 ```
 
+## Execute commands inside a POD
+`$ kubectl exec webapp cat /log/app.log`
+
 ## Create an Pod
 ```
 $ kubectl run --generator=run-pod/v1 nginx --image=nginx
