@@ -42,3 +42,53 @@ Exposes the Service externally using a cloud provider’s load balancer. NodePor
 
 ## ExternalName
  Maps the Service to the contents of the externalName field (e.g. foo.bar.example.com), by returning a CNAME record
+
+ ## Headless service
+ ```
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-h
+spec:
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+  clusterIP: none
+```
+```
+kind: Pod 
+apiVersion: v1 
+metadata:
+  name: myapp-pod
+  lables:
+    app: mysql
+spec:
+  containers:
+    - name: mysql
+      image: mysql
+  subdomain: mysql-h # Same name as the service - mysql-pod.mysql-h.default.svc.cluster.local
+  hostname: mysql-pod
+```
+```
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-deployment
+  labels:
+      app: mysql
+spec:
+  serviceName: mysql-h
+  replicas: 3
+  matchLabels:
+     app: mysql
+  template:
+    metadata:
+    name: myapp-pod
+      labels:
+        app: mysql
+  spec:
+    containers:
+    - name: mysql
+      image: mysql
+```
