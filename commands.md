@@ -1,21 +1,29 @@
 # Imperative commands
 
+```
+$ kubectl cluster-info
+kubectl get all
+kubectl run [container-name] --image=[image-name]
+kubectl port-forward [pod] [ports]
+```
+
 ## Create a some resources
 ```
 $ kubectl create namespace ny-namespace
 $ kubectl create configmap nginx-configuration --namespace my-namespace
 $ kubectl create serviceaccount ingress-serviceaccount --namespace my-namespace
 $ kubectl get roles,rolebindings --namespace my-namespace
-```
 
-## Execute commands inside a POD
-`$ kubectl exec webapp cat /log/app.log`
 
-## Create an Pod
-```
 $ kubectl run --generator=run-pod/v1 nginx --image=nginx
 $ kubectl run --generator=run-pod/v1 redis --image=redis:alpine -l tier=db
+
+$ kubectl get po --show-labels
+$ kubectl get deploy --show-labels
+
+$ kubectl exec webapp cat /log/app.log # Execute commands inside a POD
 ```
+
 
 ## Get POD definition into YAML
 ```
