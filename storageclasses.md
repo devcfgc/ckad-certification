@@ -6,7 +6,7 @@ metadata:
   name: myclaim
 spec:
   accessModes:
-      - ReadWriteOnce
+  - ReadWriteOnce
   storageClass: google-storage
   resources:
      requests:
