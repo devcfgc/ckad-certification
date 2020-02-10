@@ -11,3 +11,27 @@
 11. Pause a deployment by running the following command: `kubectl rollout pause deploy/nginx-deployment`
 12. Eventually, resume the Deployment: `kubectl rollout resume deploy/nginx-deployment`
 14. Expose a Deployment with the kubectl expose command: `kubectl expose deployment webserver --name=web-service --type=NodePort`
+
+## Examples
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app
+spec:
+  replicas: 3
+  minReadySeconds:10
+  selector:
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+      - name: node-app
+        image: node-app:1.0
+        ports:
+        - containerPort: 80
+```

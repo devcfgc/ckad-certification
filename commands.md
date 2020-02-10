@@ -22,8 +22,17 @@ $ kubectl get po --show-labels
 $ kubectl get deploy --show-labels
 
 $ kubectl exec webapp cat /log/app.log # Execute commands inside a POD
-```
+$ kubectl exec webapp cat /log/app.log
 
+$ kubectl create deployment --image=nginx nginx --save-config
+$ kubectl create deployment webapp --image=example/webapp-color --save-config
+$ kubectl create deployment demo --image=nginx --dry-run -oyaml > deployment.yaml
+$ kubectl run blue --image=nginx --replicas=6
+$ kubectl get deployments --show-labels
+$ kubectl get deployments -l app=nginx
+$ kubectl set image deployment/nginx nginx=nginx:1.9.1 --record
+$ kubectl scale deployment/webapp --replicas=3
+```
 
 ## Get POD definition into YAML
 ```
@@ -37,23 +46,6 @@ $ kubectl run --generator=run-pod/v1 nginx --image=nginx --dry-run -o yaml
 
 ## Set POD date
 `$ kubectl exec -it POD-NAME -- date -s '19 APR 2012 11:14:00'`
-
-## Create a deployment
-`$ kubectl run --generator=deployment/v1beta1 nginx --image=nginx`
-
-Or the newer recommended way:
-
-```
-$ kubectl create deployment --image=nginx nginx
-$ kubectl create deployment webapp --image=example/webapp-color
-$ kubectl create deployment demo --image=nginx --dry-run -oyaml > deployment.yaml
-```
-
-## Change image from deployment
-`$ kubectl set image deployment/nginx nginx=nginx:1.9.1 --record`
-
-## Scale deployment
-`$ kubectl scale deployment/webapp --replicas=3`
 
 ## Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)
 
@@ -69,12 +61,7 @@ Or
 > `kubectl create deployment` does not have a `--replicas` option. You could first create it and then scale it using the kubectl scale command.
 
 ## Save it to a file - (If you need to modify or add some other details)
-`$ kubectl run --generator=deployment/v1beta1 nginx --image=nginx --dry-run --replicas=4 -o yaml > nginx-deployment.yaml`
-
-## New deployment + 6 replicas
-```
-$ kubectl run blue --image=nginx --replicas=6
-```
+`$ kubectl run --generator=deployment/v1beta1 nginx --image=nginx --dry-run --replicas=4 -o yaml > nginx-deployment.yaml
 
 ## Create a Service of type NodePort and expose it:
 ```
