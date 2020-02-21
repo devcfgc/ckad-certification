@@ -1,10 +1,16 @@
+# General
+```
+$ KUBE_EDITOR=nano kubectl edit deploy nginx
+$ kubectl config set-context mycontext --namespace=mynamespace
+$ kubectl explain cronjob.spec.jobTemplate --recursive
+```
 # Imperative commands
 
 ```
 $ kubectl cluster-info
-kubectl get all
-kubectl run [container-name] --image=[image-name]
-kubectl port-forward [pod] [ports]
+$ kubectl get all
+$ kubectl run [container-name] --image=[image-name]
+$ kubectl port-forward [pod] [ports]
 ```
 
 ## Create a some resources
