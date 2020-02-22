@@ -75,6 +75,13 @@ $ kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run 
 $ kubectl expose deployment webapp --type=NodePort --port=8080 --name=webapp-service --dry-run -o yaml > webapp-service.yaml
 ```
 
+The command below finds the allocated port and executes a HTTP request.
+```
+$ export PORT=$(kubectl get svc webapp-service -o go-template='{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}')
+$ echo "Accessing host01:$PORT"
+$ curl host01:$PORT
+```
+
 ## Create a service to expose port
 `$ kubectl expose pod redis --port=6379 --name redis-service`
 
