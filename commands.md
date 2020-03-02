@@ -17,8 +17,11 @@ $ kubectl get deploy --show-labels
 # Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
 $ kubectl diff -f ./my-manifest.yaml
 
+$ kubectl top node
 $ kubectl top node my-node # Show metrics for a given node
-
+$ kubectl top po
+$ kubectl top po my-pod # Show metrics for a given pod
+$ kubectl top po --containers
 
 ```
 # Imperative commands
