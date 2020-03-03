@@ -1,12 +1,12 @@
 ```
-$ kubectl run --generator=run-pod/v1 nginx-448839 --image=nginx:alpine
+$ kubectl run nginx-448839 --image=nginx:alpine --generator=run-pod/v1
 
 $ k create ns apx-z993845
 
 $ kubectl create deployment httpd-frontend --image=httpd:2.4-alpine
 $ kubectl scale deployment/httpd-frontend --replicas=3
 
-$ kubectl run --generator=run-pod/v1 messaging --image=redis:alpine -l tier=msg
+$ kubectl run messaging --image=redis:alpine -l tier=msg --generator=run-pod/v1
 $ kubectl create deployment messaging --image=redis:alpine --dry-run -o yaml > deploy1.yaml
 
 $ kubectl get rs rs-d33393 -oyaml > rs1.yaml

@@ -2,15 +2,20 @@ apiVersion: v1
 kind: ReplicationController
 metadata:
   name: nginx
+  labels:
+    app: nginx
+    type: frontend
 spec:
   replicas: 3
   selector:
-    app: nginx
+    matchLabels:
+      type: frontend
   template:
     metadata:
       name: nginx
       labels:
         app: nginx
+        type: frontend
     spec:
       containers:
       - name: nginx

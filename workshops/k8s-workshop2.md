@@ -13,7 +13,7 @@ $ kubectl taint nodes node01 'app_type=alpha:NoSchedule'
 $ kubectl get no -o=jsonpath='{.items[*].spec.taints}'
 $ kubectl get no -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.taints}{"\n"}{end}'
 
-$ kubectl run --generator=run-pod/v1 alpha --image=redis --dry-run -oyaml > alpha.yaml
+$ kubectl run alpha --image=redis --generator=run-pod/v1 --dry-run -oyaml > alpha.yaml
 $ vim alpha.yaml
 
 apiVersion: v1
@@ -121,7 +121,7 @@ $ kubectl get jobs
 
 7)
 ```
-$ kubectl run --generator=run-pod/v1 multi-pod --image=nginx --dry-run -oyaml > multi-pod.yaml
+$ kubectl run multi-pod --image=nginx --generator=run-pod/v1 --dry-run -oyaml > multi-pod.yaml
 $ vim multi-pod.yaml
 
 apiVersion: v1
