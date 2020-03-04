@@ -3,6 +3,10 @@
 ### Create a Secret from Literal and Display Its Details
 ```
 $ kubectl create secret generic my-password --from-literal=password=mysqlpassword
+$ kubectl create secret generic db-secret --from-literal=DB_Host=sql01 \
+  --from-literal=DB_User=root \
+  --from-literal=DB_Password=password123
+d=password123
 $ kubectl get secret my-password -o yaml
 $ kubectl describe secret my-password
 ```
