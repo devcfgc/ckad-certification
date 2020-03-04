@@ -1,5 +1,6 @@
 ### Docker security context
 ```
+$ kubectl exec <POD-NAME> whoami # get user used to execute the processes within the pod
 $ docker run --user=1001 ubuntu sleep 3600
 $ docker run --cap-add MAC_ADMIN ubuntu
 ```
