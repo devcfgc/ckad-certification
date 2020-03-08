@@ -49,9 +49,11 @@ spec:
   - name: sidecar
     image: example/filebeat-configured
     volumeMounts:
-    - mountPath: /var/log/event-simulator/      name: log-volume
+    - mountPath: /var/log/event-simulator/ 
+      name: log-volume
 
-  volumes:  - name: log-volume
+  volumes:  
+    - name: log-volume
     hostPath:
       # directory location on host
       path: /var/log/webapp
