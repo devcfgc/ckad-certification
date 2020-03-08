@@ -94,7 +94,7 @@ $ kubectl get pod webapp-color -oyaml > temp1.yaml
 $ kubectl run nginx --image=nginx --generator=run-pod/v1 --dry-run -o yaml
 ```
 
-## Set POD date
+## Set POD's date
 `$ kubectl exec -it POD-NAME -- date -s '19 APR 2012 11:14:00'`
 
 ## Generate Deployment YAML file (-o yaml). Don't create it(--dry-run)
