@@ -61,6 +61,37 @@ spec:
       type: DirectoryOrCreate
 ```
 
-## POD definition - ADAPTER
+## EXAMPLE
+```
+$ kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run -- /bin/sh -c 'echo hello;sleep 3600' > pod.yaml
+$ vi pod.yaml
 
-## POD definition - AMBASSADOR
+containers:
+  - args:
+    - /bin/sh
+    - -c
+    - echo hello;sleep 3600
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    name: busybox
+    resources: {}
+  - args:
+    - /bin/sh
+    - -c
+    - echo hello;sleep 3600
+    image: busybox
+    name: busybox2
+
+$ kubectl create -f pod.yaml
+
+# Connect to the busybox2 container within the pod
+$ kubectl exec -it busybox -c busybox2 -- /bin/sh
+ls
+exit
+
+# or you can do the above with just an one-liner
+$ kubectl exec -it busybox -c busybox2 -- ls
+
+# you can do some cleanup
+$ kubectl delete po busybox
+```
