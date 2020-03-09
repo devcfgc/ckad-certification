@@ -22,6 +22,9 @@ $ kubectl get pod <pod-name> -o yaml > pod-definition.yaml
 $ kubectl get po --show-labels
 $ kubectl get deploy --show-labels
 
+$ kubectl exec -it <POD_NAME> -- /bin/bash
+$ kubectl exec -it <POD_NAME> --container <CONTAINER_NAME> -- /bin/bash
+
 # Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
 $ kubectl diff -f ./my-manifest.yaml
 
@@ -47,6 +50,7 @@ $ kubectl create configmap nginx-configuration --namespace my-namespace
 $ kubectl create serviceaccount ingress-serviceaccount --namespace my-namespace
 $ kubectl get roles,rolebindings --namespace my-namespace
 
+$ kubectl create quota myrq --hard=cpu=1,memory=1G,pods=2 --dry-run -o yaml
 
 $ kubectl run nginx --image=nginx --generator=run-pod/v1
 $ kubectl run redis --image=redis:alpine -l tier=db --generator=run-pod/v1
