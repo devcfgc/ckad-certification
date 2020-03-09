@@ -17,7 +17,7 @@ $ kubectl config set-context --current --namespace=ggckad-s2
 
 $ kubectl explain cronjob.spec.jobTemplate --recursive
 
-$ kubectl get pod my-pod -o yaml --export # Get a pod's YAML without cluster specific information
+$ kubectl get pod my-pod -o yaml --export > pod-definition.yaml # Get a pod's YAML without cluster specific information
 $ kubectl get pod <pod-name> -o yaml > pod-definition.yaml
 $ kubectl get po --show-labels
 $ kubectl get deploy --show-labels

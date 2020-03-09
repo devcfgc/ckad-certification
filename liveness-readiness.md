@@ -58,10 +58,10 @@ livenessProbe:
         ports:
         - containerPort: 8080
         readinessProbe:
-        tcpSocket:
-          port: 8080
-        initialDelaySeconds: 5
-        periodSeconds: 10
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
         livenessProbe:
           tcpSocket:
             port: 8080
@@ -108,10 +108,10 @@ spec:
     image: simple-webapp
     ports:
       - containerPort: 8080
-  readinessProbe:
-    httpGet:
-      path: /api/ready
-      port: 8080
+    readinessProbe:
+      httpGet:
+        path: /api/ready
+        port: 8080
 ```
 
 ## Protect slow starting containers with startup probes

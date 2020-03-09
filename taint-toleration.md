@@ -23,6 +23,20 @@ spec:
     operator: "Equal"
     value: "blue"
     effect: "NoSchedule"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bee
+spec:
+  containers:
+  - image: nginx
+    name: bee
+  tolerations:
+  - key: spray
+    value: mortein
+    effect: NoSchedule
+    operator: Equal
 ```
 
 ## Review Taint on the master node

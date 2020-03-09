@@ -59,9 +59,11 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
-  name: pod-readerrules:
+  name: pod-reader
+rules:
 - apiGroups:
-  - ''  resources:
+  - ''
+  resources:
   - pods
   verbs:
   - get
@@ -71,7 +73,7 @@ metadata:
 
 #### Role binding
 ```
----
+--
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
