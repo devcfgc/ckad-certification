@@ -15,6 +15,7 @@ spec:
       restartPolicy: Never
 ```
 ```
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -26,6 +27,35 @@ spec:
       containers:
       - name: math-add
         image: example/throw-dice
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: throw-dice-job
+spec:
+  completions: 3
+  backoffLimit: 25 # This is so the job does not quit before it succeeds.
+  template:
+    spec:
+      containers:
+      - name: math-add
+        image: kodekloud/throw-dice
+      restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: throw-dice-job
+spec:
+  completions: 3
+  parallelism: 3
+  backoffLimit: 25 # This is so the job does not quit before it succeeds.
+  template:
+    spec:
+      containers:
+      - name: math-add
+        image: kodekloud/throw-dice
       restartPolicy: Never
 ```
 
@@ -47,6 +77,24 @@ spec:
                - name: reporting-job
                  image: reporting-job
              restartPolicy: Never
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: throw-dice-cron-job
+spec:
+  schedule: "30 21 * * *"
+  jobTemplate:
+    spec:
+      completions: 3
+      parallelism: 3
+      backoffLimit: 25 # This is so the job does not quit before it succeeds.
+      template:
+        spec:
+          containers:
+          - name: math-add
+            image: kodekloud/throw-dice
+          restartPolicy: Never
 ```
 
 ## Patch some parameter
