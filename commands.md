@@ -5,7 +5,8 @@ $ source <(kubectl completion bash)
 $ echo "source <(kubectl completion bash)" >> ~/.bashrc
 $ sudo -i
 
-$ KUBE_EDITOR=nano kubectl edit deploy nginx
+$ KUBE_EDITOR=vim kubectl edit deploy nginx
+$ export KUBE_EDITOR=vim
 
 $ kubectl config get-contexts                # display list of contexts 
 $ kubectl config current-context             # display the current-context
@@ -27,6 +28,15 @@ $ kubectl exec -it <POD_NAME> --container <CONTAINER_NAME> -- /bin/bash
 
 # Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
 $ kubectl diff -f ./my-manifest.yaml
+
+# Delete a pod without any delay (force delete)
+$ kubectl delete po nginx --grace-period=0 --force
+
+$ kubectl exec webapp cat /log/app.log # Execute commands inside a POD
+
+# get pods sorted by
+$ kubectl get pods --sort-by=.metadata.name
+$ kubectl get pods --sort-by=.metadata.creationTimestamp
 ```
 
 ## Get metrics
@@ -61,17 +71,17 @@ kubectl run — restart=OnFailure #Creates a job
 kubectl run — restart=OnFailure — schedule=”* * * * *” # Creates a cronjob
 
 # POD
-$ kubectl run nginx --image=nginx --dry-run -o yaml
-$ kubectl run redis --image=redis:alpine -l tier=db
 $ kubectl run nginx --image=nginx --restart=Never --port=80 --dry-run -o yaml > pod.yaml # Run pod nginx and write its spec into a file called pod.yaml
-
-$ kubectl exec webapp cat /log/app.log # Execute commands inside a POD
+$ kubectl run busybox --image=busybox --restart=Never -- /bin/sh -c "sleep 3600"
 
 # DEPLOYMENT
+$ kubectl run redis --image=redis:alpine -l tier=db
+$ kubectl run nginx --image=nginx --dry-run -o yaml
 $ kubectl run nginx --image=nginx --replicas=4 --dry-run -o yaml > nginx-deployment.yaml
+$ kubectl run wordpress --image=wordpress --restart=Never --requests=cpu=200,memory=250Mi --limits=cpu=400m,memory=500Mi
+
 $ kubectl create deployment --image=nginx nginx -l app=nginx --dry-run -o yaml # does not have a `--replicas` option. You could first create it and then scale it using the kubectl scale command.
 $ kubectl scale deployment/nginx --replicas=3
-$ kubectl run wordpress --image=wordpress --restart=Never --requests=cpu=200,memory=250Mi --limits=cpu=400m,memory=500Mi
 
 # SERVICES
 $ kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run -o yaml

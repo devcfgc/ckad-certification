@@ -1,5 +1,10 @@
 ## Job example
 ```
+$ kubectl create job my-job --image=busybox -- echo "Hello I am from job"
+$ kubectl create job hello-job --image=busybox --dry-run -o yaml -- echo "Hello I am from job" > hello-job.yaml
+```
+
+```
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -29,6 +34,8 @@ spec:
 ```
 
 ## CronJob example
+`$ kubectl create cronjob my-cronjob --image=busybox --schedule="*/1 * * * *" -- bin/sh -c "date; echo Hello from kubernetes cluster"`
+
 ```
 apiVersion: batch/v1beta1
 kind: CronJob
