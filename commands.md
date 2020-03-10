@@ -55,6 +55,11 @@ $ kubectl get roles,rolebindings --namespace my-namespace
 
 $ kubectl create quota myrq --hard=cpu=1,memory=1G,pods=2 --dry-run -o yaml
 
+kubectl run # without flag creates a deployment
+kubectl run — restart=Never #Creates a Pod
+kubectl run — restart=OnFailure #Creates a job
+kubectl run — restart=OnFailure — schedule=”* * * * *” # Creates a cronjob
+
 # POD
 $ kubectl run nginx --image=nginx --dry-run -o yaml
 $ kubectl run redis --image=redis:alpine -l tier=db
