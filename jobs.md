@@ -13,8 +13,7 @@ spec:
       - name: reporting-job
         image: reporting-job
       restartPolicy: Never
-```
-```
+---
 apiVersion: batch/v1
 kind: Job
 metadata:

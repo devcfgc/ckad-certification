@@ -1,5 +1,6 @@
 ## POD definition - SIDECAR
 ```
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -14,23 +15,7 @@ spec:
       - containerPort: 8080
   - name: log-agent
     image: log-agent
-```
-
-```
-apiVersion: v1
-kind: Pod
-metadata:
-  name: yellow
-spec:
-  containers:
-  - name: lemon
-    image: busybox
-
-  - name: gold
-    image: redis
-```
-
-```
+---
 apiVersion: v1
 kind: Pod
 metadata:
