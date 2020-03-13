@@ -1,4 +1,6 @@
-## POD definition - SIDECAR
+## SIDECAR
+The idea for a sidecar container is to add some functionality not present in the main container. Rather than bloating code, which may not be necessary in other deployments, adding a container to handle a function such as logging solves the issue, while remaining decoupled and scalable. Prometheus monitoring and Fluentd logging leverage sidecar containers to collect data.
+
 ```
 ---
 apiVersion: v1
@@ -46,7 +48,7 @@ spec:
       type: DirectoryOrCreate
 ```
 
-## EXAMPLE
+### EXAMPLE
 ```
 $ kubectl run busybox --image=busybox --restart=Never -o yaml --dry-run -- /bin/sh -c 'echo hello;sleep 3600' > pod.yaml
 $ vi pod.yaml
@@ -80,3 +82,10 @@ $ kubectl exec -it busybox -c busybox2 -- ls
 # you can do some cleanup
 $ kubectl delete po busybox
 ```
+
+## ADAPTER
+The basic purpose of an adapter container is to modify data, either on ingress or egress, to match some other need. Perhaps, an existing enterprise-wide monitoring tools has particular data format needs. An adapter would be an efficient way to standardize the output of the main container to be ingested by the monitoring tool, without having to modify the monitor or the containerized application. An adapter container transforms multiple applications to singular view.
+
+## AMBASSADOR
+Ambassador is, "an open source, Kubernetes-native API gateway for microservices built on Enjoy".
+It allows for access to the outside world without having to implement a service or another entry in an ingress controller: proxy local connection, reverse proxy, limits HTTP requests, re-route from the main container to the outside world.​
