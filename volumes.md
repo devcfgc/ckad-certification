@@ -1,27 +1,27 @@
 ## Volumes Types
-- emptyDir
+- **emptyDir**  
     An empty Volume is created for the Pod as soon as it is scheduled on the worker node. The Volume's life is tightly coupled with the Pod. If the Pod is terminated, the content of emptyDir is deleted forever.  
-- hostPath
+- **hostPath**  
     With the hostPath Volume Type, we can share a directory from the host to the Pod. If the Pod is terminated, the content of the Volume is still available on the host.
-- gcePersistentDisk
+- **gcePersistentDisk**  
     With the gcePersistentDisk Volume Type, we can mount a Google Compute Engine (GCE) persistent disk into a Pod.
-- awsElasticBlockStore
+- **awsElasticBlockStore**  
     With the awsElasticBlockStore Volume Type, we can mount an AWS EBS Volume into a Pod. 
-- azureDisk
+- **azureDisk**  
     With azureDisk we can mount a Microsoft Azure Data Disk into a Pod.
--   azureFile
+- **azureFile**  
     With azureFile we can mount a Microsoft Azure File Volume into a Pod.
-- cephfs
+- **cephfs**  
     With cephfs, an existing CephFS volume can be mounted into a Pod. When a Pod terminates, the volume is unmounted and the contents of the volume are preserved.
-- nfs
+- **nfs**  
     With nfs, we can mount an NFS share into a Pod.
-- iscsi
+- **iscsi**  
     With iscsi, we can mount an iSCSI share into a Pod.
-- secret
+- **secret**  
     With the secret Volume Type, we can pass sensitive information, such as passwords, to Pods. We will take a look at an example in a later chapter.
-- configMap
+- **configMap**  
     With configMap objects, we can provide configuration data, or shell commands and arguments into a Pod.
-- persistentVolumeClaim
+- **persistentVolumeClaim**  
     We can attach a PersistentVolume to a Pod using a persistentVolumeClaim. We will cover this in our next section.
 
 #### Example mount volume
@@ -65,9 +65,7 @@ spec:
   volumes:
   - name: log-volume
     hostPath:
-      # directory location on host
       path: /var/log/webapp
-      # this field is optional
       type: Directory
 ```
 

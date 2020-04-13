@@ -48,7 +48,7 @@ $ kubectl top po my-pod # Show metrics for a given pod
 $ kubectl top po --containers
 ```
 
-# Imperative commands
+## Imperative commands
 ```
 $ kubectl cluster-info
 $ kubectl get all
@@ -73,12 +73,14 @@ kubectl run — restart=OnFailure — schedule=”* * * * *” # Creates a cronj
 # POD
 $ kubectl run nginx --image=nginx --restart=Never --port=80 --dry-run -o yaml > pod.yaml # Run pod nginx and write its spec into a file called pod.yaml
 $ kubectl run busybox --image=busybox --restart=Never -- /bin/sh -c "sleep 3600"
+$ kubectl run wordpress --image=wordpress --restart=Never --requests=cpu=200,memory=250Mi --limits=cpu=400m,memory=500Mi
 
 # DEPLOYMENT
 $ kubectl run redis --image=redis:alpine -l tier=db
 $ kubectl run nginx --image=nginx --dry-run -o yaml
 $ kubectl run nginx --image=nginx --replicas=4 --dry-run -o yaml > nginx-deployment.yaml
-$ kubectl run wordpress --image=wordpress --restart=Never --requests=cpu=200,memory=250Mi --limits=cpu=400m,memory=500Mi
+
+$ kubectl run busybox --image=busybox --restart=Never --dry-run -o yaml -- bin/sh -c "sleep 3600; ls" > multi-container.yaml
 
 $ kubectl create deployment --image=nginx nginx -l app=nginx --dry-run -o yaml # does not have a `--replicas` option. You could first create it and then scale it using the kubectl scale command.
 $ kubectl scale deployment/nginx --replicas=3
@@ -115,3 +117,6 @@ $ kubectl rollout restart deployment/frontend # Rolling restart of the "frontend
 
 ## Set POD's date
 `$ kubectl exec -it POD-NAME -- date -s '19 APR 2012 11:14:00'`
+
+## DEBUG
+`kubectl run -i --tty busybox --image=busybox --restart=Never -- sh`

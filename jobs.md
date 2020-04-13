@@ -5,6 +5,7 @@ $ kubectl create job hello-job --image=busybox --dry-run -o yaml -- echo "Hello 
 ```
 
 ```
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
