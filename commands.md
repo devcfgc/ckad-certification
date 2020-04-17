@@ -106,6 +106,8 @@ $ kubectl run my-cronjob --image=busybox --restart=OnFailure --schedule="*/1 * *
 
 ## Updating resources
 ```
+$ kubectl set env deployment/my_deployment DATABASE_URL=connection_string_to_db
+
 $ kubectl set image deployment/nginx nginx=nginx:1.9.1 --record
 $ kubectl set image deployment/frontend www=image:v2 # Rolling update "www" containers of "frontend" deployment, updating the image
 $ kubectl rollout history deployment/frontend # Check history of deploy including the revision 
