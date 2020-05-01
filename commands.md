@@ -1,14 +1,12 @@
 # General
 ```
-$ alias k=kubectl
-$ source <(kubectl completion bash)
-$ echo "source <(kubectl completion bash)" >> ~/.bashrc
-$ sudo -i
+$ alias k=kubectl && alias kgp="k get po" && alias kdp="k delete pod --grace-period=0 --force"
+$ alias kx=kubectl explain && alias kdf="kubectl delete -force --grace-period=0"
+$ export KUBE_EDITOR=vim && echo "set nu et ic ts=2" > ~/.vimrc
 
-$ KUBE_EDITOR=vim kubectl edit deploy nginx
-$ export KUBE_EDITOR=vim
+$ kubectl create --dry-run=client -o yaml
 
-$ kubectl config get-contexts                # display list of contexts 
+$ kubectl config get-contexts                # display list of contexts
 $ kubectl config current-context             # display the current-context
 $ kubectl config use-context my-cluster-name # set the default context to my-cluster-name
 
@@ -18,7 +16,7 @@ $ kubectl config set-context --current --namespace=ggckad-s2
 
 $ kubectl explain cronjob.spec.jobTemplate --recursive
 
-$ kubectl get pod my-pod -o yaml --export > pod-definition.yaml # Get a pod's YAML without 
+$ kubectl get pod my-pod -o yaml --export > pod-definition.yaml # Get a pod's YAML without
 $ kubectl get pod <pod-name> -o yaml > pod-definition.yaml
 $ kubectl get po --show-labels
 $ kubectl get deploy --show-labels
@@ -110,7 +108,7 @@ $ kubectl set env deployment/my_deployment DATABASE_URL=connection_string_to_db
 
 $ kubectl set image deployment/nginx nginx=nginx:1.9.1 --record
 $ kubectl set image deployment/frontend www=image:v2 # Rolling update "www" containers of "frontend" deployment, updating the image
-$ kubectl rollout history deployment/frontend # Check history of deploy including the revision 
+$ kubectl rollout history deployment/frontend # Check history of deploy including the revision
 $ kubectl rollout undo deployment/frontend # Rollback to the previous deployment
 $ kubectl rollout undo deployment/frontend --to-revision=2 # Rollback to a specific revision
 $ kubectl rollout status -w deployment/frontend # Watch rolling update status of "frontend" deployment until completion
