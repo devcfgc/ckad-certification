@@ -1,10 +1,10 @@
 # General
 ```
-$ alias k=kubectl && alias kgp="k get po" && alias kdp="k delete pod --grace-period=0 --force"
-$ alias kx=kubectl explain && alias kdf="kubectl delete -force --grace-period=0"
-$ export KUBE_EDITOR=vim && echo "set nu et ic ts=2" > ~/.vimrc
-
-$ kubectl create --dry-run=client -o yaml
+alias kgp="k get po" && alias  ka="kubectl apply -f" \
+    && alias kdf="k delete --grace-period=0 --force" \
+    && alias kdr="k --dry-run=client -oyaml"
+export KUBE_EDITOR=vim
+echo "set nu et ic ts=2 sts=2 sw=2" > ~/.vimrc
 
 $ kubectl config get-contexts                # display list of contexts
 $ kubectl config current-context             # display the current-context
@@ -13,6 +13,67 @@ $ kubectl config use-context my-cluster-name # set the default context to my-clu
 # permanently save the namespace for all subsequent kubectl commands in that context.
 $ kubectl config set-context $(kubectl config current-context) --namespace=dev
 $ kubectl config set-context --current --namespace=ggckad-s2
+```
+
+## POD
+Create an NGINX Pod
+`kubectl run nginx --image=nginx`
+
+Generate POD Manifest YAML file
+`kubectl run nginx --image=nginx --dry-run=client -o yaml`
+
+## LOGS
+`kubectl logs nginx -f --previous`
+
+
+## Deployment
+Create a deployment
+`kubectl create deployment --image=nginx nginx`
+
+Generate Deployment YAML file
+`kubectl create deployment --image=nginx nginx --dry-run=client -o yaml`
+
+IMPORTANT:
+kubectl create deployment does not have a --replicas option. You could first create it and then scale it using the kubectl scale command or Save it to a file.
+`kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml`
+
+
+## Service
+Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379
+`kubectl expose pod redis --port=6379 --name redis-service --dry-run=client -o yaml`
+(This will automatically use the pod's labels as selectors)
+
+Or
+
+`kubectl create service clusterip redis --tcp=6379:6379 --dry-run=client -o yaml` (This will not use the pods labels as selectors, instead it will assume selectors as app=redis. You cannot pass in selectors as an option. So it does not work very well if your pod has a different label set. So generate the file and modify the selectors before creating the service)
+
+Create a Service named nginx of type NodePort to expose pod nginx's port 80 on port 30080 on the nodes:
+`kubectl expose pod nginx --port=80 --name nginx-service --type=NodePort --dry-run=client -o yaml`
+(This will automatically use the pod's labels as selectors, but you cannot specify the node port. You have to generate a definition file and then add the node port in manually before creating the service with the pod.)
+
+Or
+
+`kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=client -o yaml`
+(This will not use the pods labels as selectors)
+
+
+## kubectl exec - Execute a command against a container in a pod.
+Get output from running 'date' from pod <pod-name>. By default, output is from the first container.
+`kubectl exec <pod-name> -- date`
+
+Get output from running 'date' in container <container-name> of pod <pod-name>.
+`kubectl exec <pod-name> -c <container-name> -- date`
+
+Get an interactive TTY and run /bin/bash from pod <pod-name>. By default, output is from the first container.
+`kubectl exec -ti <pod-name> -- /bin/bash`
+
+
+
+```
+kubectl run some-deployment-name --image=some-image --dry-run -o yaml > deployment.yml
+kubectl run some-pod-name --restart=Never --image=some-image --dry-run -o yaml > pod.yml
+kubectl run some-job-name --restart=OnFailure --image=some-image --dry-run -o yaml > job.yml
+kubectl run some-cron-name --schedule="*/1 * * * *" --restart=OnFailure --image=some-image --dry-run -o yaml > cron.yml
 
 $ kubectl explain cronjob.spec.jobTemplate --recursive
 
@@ -67,6 +128,7 @@ kubectl run # without flag creates a deployment
 kubectl run — restart=Never #Creates a Pod
 kubectl run — restart=OnFailure #Creates a job
 kubectl run — restart=OnFailure — schedule=”* * * * *” # Creates a cronjob
+kubectl run busybox --image=busybox --dry-run -o yaml -- sh -c 'sleep 3600' > test.yaml
 
 # POD
 $ kubectl run nginx --image=nginx --restart=Never --port=80 --dry-run -o yaml > pod.yaml # Run pod nginx and write its spec into a file called pod.yaml
@@ -120,3 +182,17 @@ $ kubectl rollout restart deployment/frontend # Rolling restart of the "frontend
 
 ## DEBUG
 `kubectl run -i --tty busybox --image=busybox --restart=Never -- sh`
+
+## NODES
+```
+$ kubectl drain <NODE_NAME>    # safely evict all of your pods from a node
+$ kubectl drain <NODE_NAME> --ignore-daemonsets --force
+$ kubectl cordon <NODE_NAME>   # mark a Node unschedulable
+$ kubectl uncordon <NODE_NAME> # schedule new pods onto the node
+```
+
+## ETCD
+To make use of etcdctl for tasks such as back up and restore, make sure that you set the ETCDCTL_API to 3. You can do this by exporting the variable ETCDCTL_API prior to using the etcdctl client. This can be done as follows: `export ETCDCTL_API=3`
+
+### ETCD BACKUPS
+https://github.com/mmumshad/kubernetes-cka-practice-test-solution-etcd-backup-and-restore

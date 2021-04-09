@@ -33,6 +33,6 @@ metadata:
 spec:
   containers:
   - name: simple-webapp
-    image: kodekloud/webapp-color
+    image: devcfgc/webapp-color
     args: ["--color", "green"]
 ```

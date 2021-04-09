@@ -1,0 +1,21 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: dice
+spec:
+  jobTemplate:
+    metadata:
+      name: dice
+    spec:
+      completion: 1
+      backoffLimit: 25
+      activeDeadLineSeconds: 20
+      template:
+        spec:
+          containers:
+          - image: devcfgc/throw-dice
+            name: dice
+            resources: {}
+          restartPolicy: OnFailure
+  schedule: '*/1 * * * *'
+status: {}

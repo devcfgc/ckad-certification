@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
       - name: math-add
-        image: kodekloud/throw-dice
+        image: devcfgc/throw-dice
       restartPolicy: Never
 ---
 apiVersion: batch/v1
@@ -59,7 +59,7 @@ spec:
     spec:
       containers:
       - name: math-add
-        image: kodekloud/throw-dice
+        image: devcfgc/throw-dice
       restartPolicy: Never
 ```
 
@@ -99,7 +99,7 @@ spec:
         spec:
           containers:
           - name: math-add
-            image: kodekloud/throw-dice
+            image: devcfgc/throw-dice
           restartPolicy: Never
 ```
 

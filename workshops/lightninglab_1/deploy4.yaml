@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     run: nginx-deploy
   name: nginx-deploy
@@ -17,7 +16,6 @@ spec:
       maxUnavailable: 2
   template:
     metadata:
-      creationTimestamp: null
       labels:
         run: nginx-deploy
     spec:

@@ -1,6 +1,6 @@
 ## Activate network plugin on MINIKUBE
 ```
-$ minikube start --network-plugin=cni --enable-default-cni --memory=4096
+$ minikube start --network-plugin=cni --cni=bridge --memory=4096
 $ minikube ssh -- sudo mount bpffs -t bpf /sys/fs/bpf
 $ kubectl create -f https://raw.githubusercontent.com/cilium/cilium/HEAD/install/kubernetes/quick-install.yaml
 $ kubectl get pods -n kube-system -l k8s-app=cilium
